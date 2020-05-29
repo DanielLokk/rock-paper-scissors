@@ -1,0 +1,70 @@
+<head>
+    <script>
+
+        function youLose(w,l) {
+            console.log(`You Lose! ${w} beats ${l}`)
+            return 0
+        }
+
+        function youWin(w,l) {
+            console.log(`You Win! ${w} beats ${l}`)
+            return 1
+        }
+
+        function playComputer() {
+            return Math.floor(Math.random() * 3);     // returns a random integer from 0 to 2
+        }
+
+        function getPlay(play) {
+            switch (play) {
+                case 0: return "rock"
+                    break
+                case 1: return "paper"
+                    break
+                case 2: return "scissors"
+                    break    
+            }
+        }
+
+        function playRound(ps,pc) {
+            ps_comp = ps.toLowerCase()
+
+            if (ps_comp == pc) {
+                console.log("It's a draw")
+                return 2
+            }
+
+            if (ps_comp == "rock") {
+                return (pc == "paper") ? youLose(pc,ps) : youWin(ps,pc)
+            } else if (ps_comp == "paper") {
+                return (pc == "scissors") ? youLose(pc,ps) : youWin(ps,pc)
+            } else if (ps_comp == "scissors") {
+                return (pc == "rock") ? youLose(pc,ps) : youWin(ps,pc)
+            }
+        }
+
+        function game(n_games) {
+            let u_score = 0, c_score = 0
+
+            for (let index = 0; index < n_games; index++) {
+                const ps = window.prompt("Selection?", "rock/paper/scissors")
+                const cs = getPlay(playComputer())
+                const play =playRound(ps,cs)
+                if (play == 1) {
+                    u_score++
+                } else if (play == 0){
+                    c_score++
+                }
+                console.log("User: " + u_score)
+                console.log("Computer: " + c_score)
+            }
+            if (u_score > c_score) {
+                return "Congratulations you Won!"
+            } else if (u_score < c_score) {
+                return "Better luck next time..."
+            } else {
+                return "It's a draw!"
+            }
+        }
+    </script>
+</head>
